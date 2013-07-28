@@ -35,20 +35,7 @@ where <parameter>/path/to/nerpn</parameter> represents the path to the jar-file,
 Once the program is running, you will be presented with NeRPN's user interface, which consists of a stack view, and
 input box, a back (**&lt;**) button, and an **Enter** button.
 
-      <figure>
-        <title>NeRPN's User Interface</title>
-
-        <screenshot>
-          <screeninfo></screeninfo>
-
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="Screenshot.png" />
-            </imageobject>
-          </mediaobject>
-        </screenshot>
-      </figure>
-    </section>
+![NeRPN's user interface](nerpn-screenshot.png)
 
 ### Entering and Removing Values and Operations on the Stack
 
@@ -146,7 +133,7 @@ With a result of 8.
 
 In RPN Notation, this will be written with the add operator, `+`, following the numbers. For example:
 
-> 3 5 +
+    3 5 +
 
 The result, as in the previous example, will be 8.
 
@@ -166,7 +153,7 @@ the following calculation, for instance.
 Without the parentheses in this notation, 8 and 3 would be multiplied first, resulting in an incorrect answer. In RPN
 notation, and making use of a stack to store values, the calculation would work as follows:
 
-> 8 3 5 + *
+    8 3 5 + *
 
 meaning that 8, 3, and 5 would be added to the stack in order. Remember that a stack is Last-in, First-out. When an
 operator is used, the values will come off the stack in the opposite order as they were added. This causes 5 to be added
@@ -192,7 +179,7 @@ This could not be written as 5 / 8 / 3, nor as 3 / 5 / 8. Both would give incorr
 
 With RPN, you'll write:
 
-> 3 5 8 / /
+    3 5 8 / /
 
 There is no need for parentheses: the calculator will first divide 5 by 8, and then divide 3 by the result of that
 calculation, resulting in a correct answer.
