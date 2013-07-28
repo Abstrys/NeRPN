@@ -1,0 +1,115 @@
+<project name="NeRPN" default="dist" basedir=".">
+    <description>NeRPN, a Markdown viewer, by Eron Hennessey</description>
+
+    <!-- set global properties for this build -->
+    <property name="src" location="src/abstrys/NeRPN"/>
+    <property name="build" location="build"/>
+    <property name="dist"  location="dist"/>
+    <property name="pkg"  location="pkg"/>
+
+    <target name="init" depends="clean">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}"/>
+    </target>
+
+    <target name="compile" depends="init" description="compile the source">
+        <path id="build.classpath">
+          <fileset dir="${basedir}"/>
+        </path>
+
+        <!-- Compile the java code from ${src} into ${build} -->
+        <javac includeantruntime="false" debug="true" srcdir="${src}" destdir="${build}">
+            <classpath>
+                <pathelement path="${build.classpath}"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="dist" depends="compile" description="generate the distribution">
+        <!-- Create the distribution directory -->
+
+        <!-- Construct the manifest's classpath -->
+        <pathconvert property="manifest.classpath" pathsep=" ">
+            <path refid="build.classpath"/>
+            <mapper>
+                <chainedmapper>
+                    <flattenmapper/>
+                </chainedmapper>
+            </mapper>
+        </pathconvert>
+
+        <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+        <jar jarfile="${dist}/NeRPN.jar" basedir="${build}">
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Main-Class" value="abstrys.NeRPN.NeRPN"/>
+                <attribute name="Class-Path" value="${manifest.classpath}"/>
+                <section name="common">
+                    <attribute name="Specification-Title" value="NeRPN"/>
+                    <attribute name="Specification-Version" value="1.0"/>
+                    <attribute name="Specification-Vendor" value="Eron Hennessey / Abstrys"/>
+                    <attribute name="Implementation-Title" value="NeRPN"/>
+                    <attribute name="Implementation-Version" value="${version} ${TODAY}"/>
+                    <attribute name="Implementation-Vendor" value="Eron Hennessey / Abstrys"/>
+                </section>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="copy_license" depends="dist"
+      description="copy the license files into the dist directory">
+        <!-- Copy the License and Readme files. -->
+        <copy file="LICENSE.txt" todir="${dist}"/>
+        <copy file="README.md" tofile="${dist}/README.txt"/>
+    </target>
+
+    <target name="pkg_nix" depends="copy_license"
+      description="package NeRPN in a .tar.bz2 file for distribution on Unix-like systems.">
+        <!-- Copy the *nix shell files. -->
+        <copy file="shell/install.sh" todir="${dist}"/>
+        <copy file="shell/NeRPN" todir="${dist}"/>
+        <!-- tar it up! -->
+        <tar destfile="${pkg}/NeRPN.tar" longfile="gnu">
+            <!-- put the right permissions on the executable files -->
+            <tarfileset dir="${dist}" filemode="755" prefix="NeRPN-${DSTAMP}">
+               <include name="install.sh"/>
+               <include name="NeRPN"/>
+            </tarfileset>
+            <!-- and just include the rest... -->
+            <tarfileset dir="${dist}" prefix="NeRPN-${DSTAMP}">
+               <include name="**"/>
+               <exclude name="install.sh"/>
+               <exclude name="NeRPN"/>
+            </tarfileset>
+        </tar>
+        <gzip destfile="${pkg}/NeRPN-${DSTAMP}.tar.gz" src="${pkg}/NeRPN.tar"/>
+        <bzip2 destfile="${pkg}/NeRPN-${DSTAMP}.tar.bz2" src="${pkg}/NeRPN.tar"/>
+    </target>
+
+    <target name="pkg_win" depends="copy_license"
+      description="package NeRPN in a .zip file for distribution on Microsoft Windows">
+        <!-- Make the zipfile, containing everything within the `dist` directory -->
+        <zip destfile="${pkg}/NeRPN-${DSTAMP}.zip" update="true">
+            <zipfileset dir="${dist}" prefix="NeRPN-${DSTAMP}">
+               <include name="**"/>
+            </zipfileset>
+        </zip>
+    </target>
+
+    <target name="pkg_all" depends="pkg_win,pkg_nix"
+      description="package NeRPN for all supported platforms"/>
+
+    <target name="clean" description="clean up" >
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
+
+    <target name="spotless" depends="clean" description="clean up *everything*, including the pkg directory">
+        <delete dir="${pkg}"/>
+    </target>
+</project>
+
+
