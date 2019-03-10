@@ -1,5 +1,5 @@
 //  NeRPN: A minimalistic RPN Calculator in Java.
-//  Copyright (C) 2007 Eron J. Hennessey
+//  Copyright © 2007-2019 Eron J. Hennessey
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -31,24 +31,17 @@ import java.util.HashMap;
  * A class that provides a complete RPN calculator
  * @author Eron Hennessey
  */
-public class RPNCalc
-{
+public class RPNCalc {
 
-    public enum RPNMode
-    {
-
+    public enum RPNMode {
         RAD, DEG
     };
 
-    public enum DispMode
-    {
-
+    public enum DispMode {
         STD, FIX, SCI, ENG
     };
 
-    public enum Ops
-    {
-
+    public enum Ops {
         ABS, // calculates |x|
         ACOS, // calculates acos(x)
         ADD, // calculates y+x
@@ -111,8 +104,7 @@ public class RPNCalc
     /**
      * Default Constructor
      */
-    public RPNCalc()
-    {
+    public RPNCalc() {
         rpnstack = new Stack<BigDecimal>();
 
         cmdmap = new HashMap<String, Ops>();
@@ -175,10 +167,8 @@ public class RPNCalc
      * @param op the operation to perform
      * @return true if the operation affects the stack; false otherwise.
      */
-    public boolean doOperation(Ops op) throws ArithmeticException
-    {
-        switch (op)
-        {
+    public boolean doOperation(Ops op) throws ArithmeticException {
+        switch (op) {
         case ABS:
             requireStack(1);
             push(pop().abs());
@@ -186,11 +176,11 @@ public class RPNCalc
 
         case ACOS:
             requireStack(1);
-        {
-            double dvalue = pop().doubleValue();
-            push(new BigDecimal(Math.acos(dvalue)));
-        }
-        return true;
+            {
+                double dvalue = pop().doubleValue();
+                push(new BigDecimal(Math.acos(dvalue)));
+            }
+            return true;
 
         case ADD:
             requireStack(2);
@@ -199,27 +189,27 @@ public class RPNCalc
 
         case ASIN:
             requireStack(1);
-        {
-            double dvalue = pop().doubleValue();
-            push(new BigDecimal(Math.asin(dvalue)));
-        }
-        return true;
+            {
+                double dvalue = pop().doubleValue();
+                push(new BigDecimal(Math.asin(dvalue)));
+            }
+            return true;
 
         case ATAN:
             requireStack(1);
-        {
-            double dvalue = pop().doubleValue();
-            push(new BigDecimal(Math.atan(dvalue)));
-        }
-        return true;
+            {
+                double dvalue = pop().doubleValue();
+                push(new BigDecimal(Math.atan(dvalue)));
+            }
+            return true;
 
         case CBRT:
             requireStack(1);
-        {
-            double dvaluex = pop().doubleValue();
-            push(new BigDecimal(Math.cbrt(dvaluex)));
-        }
-        return true;
+            {
+                double dvaluex = pop().doubleValue();
+                push(new BigDecimal(Math.cbrt(dvaluex)));
+            }
+            return true;
 
         case CEIL:
             requireStack(1);
@@ -233,31 +223,30 @@ public class RPNCalc
 
         case COS:
             requireStack(1);
-        {
-            double dvalue = pop().doubleValue();
-            push(new BigDecimal(Math.cos(dvalue)));
-        }
-        return true;
+            {
+                double dvalue = pop().doubleValue();
+                push(new BigDecimal(Math.cos(dvalue)));
+            }
+            return true;
 
         case COSH:
             requireStack(1);
-        {
-            double dvalue = pop().doubleValue();
-            push(new BigDecimal(Math.cosh(dvalue)));
-        }
-        return true;
+            {
+                double dvalue = pop().doubleValue();
+                push(new BigDecimal(Math.cosh(dvalue)));
+            }
+            return true;
 
         case DEG:
             requireStack(1);
-        {
-            double dvalue = pop().doubleValue();
-            push(new BigDecimal(Math.toDegrees(dvalue)));
-        }
-        return true;
+            {
+                double dvalue = pop().doubleValue();
+                push(new BigDecimal(Math.toDegrees(dvalue)));
+            }
+            return true;
 
         case DELETE:
-            if (rpnstack.size() >= 1)
-            {
+            if (rpnstack.size() >= 1) {
                 rpnstack.pop();
                 return true;
             }
@@ -265,15 +254,15 @@ public class RPNCalc
 
         case DIV:
             requireStack(2);
-        {
-            BigDecimal x = pop();
-            if (x.equals(BigDecimal.ZERO))
             {
-                throw new ArithmeticException(ERR_DIV_BY_ZERO);
+                BigDecimal x = pop();
+                if (x.equals(BigDecimal.ZERO))
+                {
+                    throw new ArithmeticException(ERR_DIV_BY_ZERO);
+                }
+                push(pop().divide(x, MathContext.DECIMAL128));
             }
-            push(pop().divide(x, MathContext.DECIMAL128));
-        }
-        return true;
+            return true;
 
         case DUP:
             requireStack(1);
@@ -282,19 +271,19 @@ public class RPNCalc
 
         case E:
             requireStack(1);
-        {
-            double dvalue = pop().doubleValue();
-            push(new BigDecimal(Math.exp(dvalue)));
-        }
-        return true;
+            {
+                double dvalue = pop().doubleValue();
+                push(new BigDecimal(Math.exp(dvalue)));
+            }
+            return true;
 
         case EN1:
             requireStack(1);
-        {
-            double dvalue = pop().doubleValue();
-            push(new BigDecimal(Math.expm1(dvalue)));
-        }
-        return true;
+            {
+                double dvalue = pop().doubleValue();
+                push(new BigDecimal(Math.expm1(dvalue)));
+            }
+            return true;
 
         case ENG:
             disp_mode = DispMode.ENG;
@@ -302,36 +291,36 @@ public class RPNCalc
 
         case EXP:
             requireStack(1);
-        {
-            push(new BigDecimal(10));
-            swap(1);
-            doOperation(Ops.POW);
-        }
-        return true;
+            {
+                push(new BigDecimal(10));
+                swap(1);
+                doOperation(Ops.POW);
+            }
+            return true;
 
         case EXPN1:
             requireStack(1);
-        {
-            push(new BigDecimal(10));
-            doOperation(Ops.INV);
-            swap(1);
-            doOperation(Ops.POW);
-        }
-        return true;
+            {
+                push(new BigDecimal(10));
+                doOperation(Ops.INV);
+                swap(1);
+                doOperation(Ops.POW);
+            }
+            return true;
 
         case FACT:
             requireStack(1);
             requireInteger();
-        {
-            BigDecimal x = pop();
-            long i = x.intValueExact() - 1;
-            while (i > 0)
             {
-                x = x.multiply(new BigDecimal(i--));
+                BigDecimal x = pop();
+                long i = x.intValueExact() - 1;
+                while (i > 0)
+                {
+                    x = x.multiply(new BigDecimal(i--));
+                }
+                push(x);
             }
-            push(x);
-        }
-        return true;
+            return true;
 
         case FIX:
             disp_mode = DispMode.FIX;
@@ -344,12 +333,12 @@ public class RPNCalc
 
         case HYP:
             requireStack(2);
-        {
-            double dvaluex = pop().doubleValue();
-            double dvaluey = pop().doubleValue();
-            push(new BigDecimal(Math.hypot(dvaluex, dvaluey)));
-        }
-        return true;
+            {
+                double dvaluex = pop().doubleValue();
+                double dvaluey = pop().doubleValue();
+                push(new BigDecimal(Math.hypot(dvaluex, dvaluey)));
+            }
+            return true;
 
         case INV:
             requireStack(1);
@@ -360,19 +349,19 @@ public class RPNCalc
 
         case LN:
             requireStack(1);
-        {
-            double dvaluex = pop().doubleValue();
-            push(new BigDecimal(Math.log(dvaluex)));
-        }
-        return true;
+            {
+                double dvaluex = pop().doubleValue();
+                push(new BigDecimal(Math.log(dvaluex)));
+            }
+            return true;
 
         case LOG:
             requireStack(1);
-        {
-            double dvaluex = pop().doubleValue();
-            push(new BigDecimal(Math.log10(dvaluex)));
-        }
-        return true;
+            {
+                double dvaluex = pop().doubleValue();
+                push(new BigDecimal(Math.log10(dvaluex)));
+            }
+            return true;
 
         case MAX:
             requireStack(2);
@@ -403,13 +392,10 @@ public class RPNCalc
             requireStack(2);
             // if the x value is an integer, use the BigDecimal.pow()
             // function, otherwise use Math.pow for non-integer x.
-            if (peekInteger())
-            {
+            if (peekInteger()) {
                 int ivaluex = pop().intValueExact();
                 push(pop().pow(ivaluex));
-            }
-            else
-            {
+            } else {
                 double dvaluex = pop().doubleValue();
                 double dvaluey = pop().doubleValue();
                 push(new BigDecimal(Math.pow(dvaluey, dvaluex)));
@@ -418,11 +404,11 @@ public class RPNCalc
 
         case RAD:
             requireStack(1);
-        {
-            double dvalue = pop().doubleValue();
-            push(new BigDecimal(Math.toRadians(dvalue)));
-        }
-        return true;
+            {
+                double dvalue = pop().doubleValue();
+                push(new BigDecimal(Math.toRadians(dvalue)));
+            }
+            return true;
 
         case RAND:
             push(new BigDecimal(Math.random()));
@@ -449,27 +435,27 @@ public class RPNCalc
 
         case SIN:
             requireStack(1);
-        {
-            double dvalue = pop().doubleValue();
-            push(new BigDecimal(Math.sin(dvalue)));
-        }
-        return true;
+            {
+                double dvalue = pop().doubleValue();
+                push(new BigDecimal(Math.sin(dvalue)));
+            }
+            return true;
 
         case SINH:
             requireStack(1);
-        {
-            double dvalue = pop().doubleValue();
-            push(new BigDecimal(Math.sinh(dvalue)));
-        }
-        return true;
+            {
+                double dvalue = pop().doubleValue();
+                push(new BigDecimal(Math.sinh(dvalue)));
+            }
+            return true;
 
         case SQRT:
             requireStack(1);
-        {
-            double dvaluex = pop().doubleValue();
-            push(new BigDecimal(Math.sqrt(dvaluex)));
-        }
-        return true;
+            {
+                double dvaluex = pop().doubleValue();
+                push(new BigDecimal(Math.sqrt(dvaluex)));
+            }
+            return true;
 
         case STD:
             disp_mode = DispMode.STD;
@@ -477,11 +463,11 @@ public class RPNCalc
 
         case SUBT:
             requireStack(2);
-        {
-            BigDecimal x = pop();
-            push(pop().subtract(x));
-        }
-        return true;
+            {
+                BigDecimal x = pop();
+                push(pop().subtract(x));
+            }
+            return true;
 
         case SWAP:
             // pop two numbers off the stack, then put them back on in the
@@ -492,19 +478,19 @@ public class RPNCalc
 
         case TAN:
             requireStack(1);
-        {
-            double dvalue = pop().doubleValue();
-            push(new BigDecimal(Math.tan(dvalue)));
-        }
-        return true;
+            {
+                double dvalue = pop().doubleValue();
+                push(new BigDecimal(Math.tan(dvalue)));
+            }
+            return true;
 
         case TANH:
             requireStack(1);
-        {
-            double dvalue = pop().doubleValue();
-            push(new BigDecimal(Math.tanh(dvalue)));
-        }
-        return true;
+            {
+                double dvalue = pop().doubleValue();
+                push(new BigDecimal(Math.tanh(dvalue)));
+            }
+            return true;
 
         default:
             throw new ArithmeticException(ERR_UNKNOWN_OP);
@@ -517,13 +503,11 @@ public class RPNCalc
     /**
      * Swaps the top element with the element at the position idx.
      */
-    public void swap(int idx) throws ArithmeticException
-    {
+    public void swap(int idx) throws ArithmeticException {
         requireStack(idx);
 
         // can't swap an item with itself!
-        if (idx == 0)
-        {
+        if (idx == 0) {
             return;
         }
 
@@ -534,27 +518,22 @@ public class RPNCalc
         rpnstack.insertElementAt(xv, idx);
     }
 
-    public void push(BigDecimal val)
-    {
+    public void push(BigDecimal val) {
         rpnstack.push(val);
     }
 
-    public void push(long val)
-    {
+    public void push(long val) {
         rpnstack.push(new BigDecimal(val));
     }
 
-    public void push(double val)
-    {
+    public void push(double val) {
         rpnstack.push(new BigDecimal(val));
     }
 
-    public void push(String val) throws NumberFormatException
-    {
+    public void push(String val) throws NumberFormatException {
         // first check to see if this is a text operation or
         // constant value.
-        if (pushTextOp(val) || pushConstant(val))
-        {
+        if (pushTextOp(val) || pushConstant(val)) {
             return;
         }
 
@@ -562,11 +541,9 @@ public class RPNCalc
         rpnstack.push(new BigDecimal(val));
     }
 
-    public boolean pushTextOp(String val)
-    {
+    public boolean pushTextOp(String val) {
         Ops op = cmdmap.get(val);
-        if (op != null)
-        {
+        if (op != null) {
             doOperation(op);
             return true;
         }
@@ -576,8 +553,7 @@ public class RPNCalc
     public boolean pushConstant(String val)
     {
         BigDecimal con = constmap.get(val);
-        if (con != null)
-        {
+        if (con != null) {
             push(con);
             return true;
         }
@@ -588,13 +564,11 @@ public class RPNCalc
      * Pop the most recent element off the stack.
      * @return the value of the most recent element.
      */
-    public BigDecimal pop()
-    {
+    public BigDecimal pop() {
         return rpnstack.pop();
     }
 
-    public BigDecimal peek()
-    {
+    public BigDecimal peek() {
         return rpnstack.peek();
     }
 
@@ -605,8 +579,7 @@ public class RPNCalc
      * Get the number of elements on the stack.
      * @return the number of elements on the stack.
      */
-    public int getStackHeight()
-    {
+    public int getStackHeight() {
         return rpnstack.size();
     }
 
@@ -616,8 +589,7 @@ public class RPNCalc
      */
     public String getStackEntry(int i)
     {
-        if (i >= rpnstack.size())
-        {
+        if (i >= rpnstack.size()) {
             return null;
         }
 
@@ -625,8 +597,7 @@ public class RPNCalc
         int scale = val.scale();
         int digits = val.precision();
 
-        switch (disp_mode)
-        {
+        switch (disp_mode) {
         case STD:
             return val.toString();
 
@@ -644,8 +615,7 @@ public class RPNCalc
         }
     }
 
-    public Stack getStack()
-    {
+    public Stack getStack() {
         return rpnstack;
     }
 
@@ -653,36 +623,29 @@ public class RPNCalc
      * Returns the stack as a string, one entry per line
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         String output = "";
         // print the stack, from the last element to the first
-        for (int idx = 0; idx < rpnstack.size(); idx++)
-        {
+        for (int idx = 0; idx < rpnstack.size(); idx++) {
             output += new String((rpnstack.size() - idx) + ": " + rpnstack.elementAt(idx) + "\n");
         }
 
         return output;
     }
 
-    private void requireStack(int i) throws ArithmeticException
-    {
-        if (rpnstack.size() < i)
-        {
+    private void requireStack(int i) throws ArithmeticException {
+        if (rpnstack.size() < i) {
             throw new ArithmeticException(ERR_NO_STACK);
         }
     }
 
-    private void requireInteger() throws ArithmeticException
-    {
-        if (peek().scale() > 0)
-        {
+    private void requireInteger() throws ArithmeticException {
+        if (peek().scale() > 0) {
             throw new ArithmeticException(ERR_NEED_INT);
         }
     }
 
-    private boolean peekInteger()
-    {
+    private boolean peekInteger() {
         return (peek().scale() <= 0);
     }
 }

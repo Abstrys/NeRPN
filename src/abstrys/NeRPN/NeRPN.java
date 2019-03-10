@@ -1,5 +1,5 @@
 //  NeRPN: A minimalistic RPN Calculator in Java.
-//  Copyright (C) 2007 Eron J. Hennessey
+//  Copyright © 2007-2019 Eron J. Hennessey
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -12,7 +12,7 @@
 //  GNU General Public License for more details.
 //
 //  You should have received a copy of the GNU General Public License
-//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//  along with this program. If not, see <http://www.gnu.org/licenses/>.
 package abstrys.NeRPN;
 
 import javax.swing.JFrame;
@@ -26,13 +26,10 @@ import java.awt.event.*;
 //       preferences for the application
 // 0005: A keypad should be added, that can be shown or hidden as desired
 //       (selectable via settings in the menu).
-public class NeRPN extends JFrame
-{
-
+public class NeRPN extends JFrame {
     RPNPanel rpn_panel = null;
 
-    public NeRPN()
-    {
+    public NeRPN() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("NeRPN - v1.0");
 
@@ -40,12 +37,9 @@ public class NeRPN extends JFrame
         rpn_panel = new RPNPanel();
         cp.add(rpn_panel);
 
-        addWindowFocusListener(new WindowAdapter()
-        {
+        addWindowFocusListener(new WindowAdapter() {
             // TODO: this may not be necessary.
-
-            public void WindowGainedFocus(WindowEvent e)
-            {
+            public void WindowGainedFocus(WindowEvent e) {
                 rpn_panel.requestFocusInWindow();
             }
         });
@@ -54,8 +48,7 @@ public class NeRPN extends JFrame
         setVisible(true);
     }
 
-    static public void main(String[] args)
-    {
+    static public void main(String[] args) {
         NeRPN app = new NeRPN();
     }
 }

@@ -1,5 +1,5 @@
 //  NeRPN: A minimalistic RPN Calculator in Java.
-//  Copyright (C) 2007 Eron J. Hennessey
+//  Copyright © 2007-2019 Eron J. Hennessey
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -25,16 +25,14 @@ import java.text.DecimalFormat;
  * Contains a scrollable, resizable view of a stack, consisting
  * of text elements and labels
  */
-public class RPNViewPanel extends JPanel
-{
+public class RPNViewPanel extends JPanel {
 
     final int PANEL_SIZE = 4;
     JPanel row_value_panel;
     Stack stack;
     DecimalFormat format = null;
 
-    public RPNViewPanel()
-    {
+    public RPNViewPanel() {
         BorderLayout layout = new BorderLayout();
         layout.setHgap(2);
         setLayout(layout);
@@ -47,10 +45,8 @@ public class RPNViewPanel extends JPanel
         setBorder(new EmptyBorder(4, 4, 2, 4));
     }
 
-    private JPanel createRowLabelPanel()
-    {
-        final String ROW_LABELS[] =
-        {
+    private JPanel createRowLabelPanel() {
+        final String ROW_LABELS[] = {
             "w", "z", "y", "x"
         };
 
@@ -59,8 +55,7 @@ public class RPNViewPanel extends JPanel
         layout.setVgap(2);
         panel.setLayout(layout);
 
-        for (int i = 0; i < PANEL_SIZE; i++)
-        {
+        for (int i = 0; i < PANEL_SIZE; i++) {
             JLabel label = new JLabel(ROW_LABELS[i]);
             label.setHorizontalAlignment(JLabel.CENTER);
             panel.add(label);
@@ -75,13 +70,11 @@ public class RPNViewPanel extends JPanel
         layout.setVgap(2);
         row_value_panel.setLayout(layout);
 
-        for (int i = 0; i < PANEL_SIZE; i++)
-        {
+        for (int i = 0; i < PANEL_SIZE; i++) {
             JTextField field = new JTextField();
             field.setEditable(false);
             field.setHorizontalAlignment(JTextField.RIGHT);
-            if (i == (PANEL_SIZE - 1))
-            {
+            if (i == (PANEL_SIZE - 1)) {
                 Font bold_font = field.getFont().deriveFont(Font.BOLD);
                 field.setFont(bold_font);
                 field.setBackground(new Color(255, 255, 204));
@@ -96,18 +89,13 @@ public class RPNViewPanel extends JPanel
      * passed-in Stack object.
      * @param stack the Stack to use.
      */
-    public void updateView(RPNCalc calc)
-    {
+    public void updateView(RPNCalc calc) {
         final int s = calc.getStackHeight();
-        for (int i = 0; (i < PANEL_SIZE); i++)
-        {
+        for (int i = 0; (i < PANEL_SIZE); i++) {
             JTextField val_field = (JTextField) row_value_panel.getComponent(PANEL_SIZE - 1 - i);
-            if (i < s)
-            {
+            if (i < s) {
                 val_field.setText(calc.getStackEntry(s - 1 - i));
-            }
-            else
-            {
+            } else {
                 val_field.setText(null);
             }
         }
