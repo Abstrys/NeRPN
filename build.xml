@@ -61,7 +61,7 @@
     <target name="copy_license" depends="dist"
       description="copy the license files into the dist directory">
         <!-- Copy the License and Readme files. -->
-        <copy file="LICENSE.txt" todir="${dist}"/>
+        <copy file="LICENSE" todir="${dist}"/>
         <copy file="README.md" tofile="${dist}/README.txt"/>
     </target>
 
@@ -69,28 +69,28 @@
       description="package NeRPN in a .tar.bz2 file for distribution on Unix-like systems.">
         <!-- Copy the *nix shell files. -->
         <copy file="shell/install.sh" todir="${dist}"/>
-        <copy file="shell/NeRPN" todir="${dist}"/>
         <!-- tar it up! -->
-        <tar destfile="${pkg}/NeRPN.tar" longfile="gnu">
+        <tar destfile="${build}/NeRPN.tar" longfile="gnu">
             <!-- put the right permissions on the executable files -->
             <tarfileset dir="${dist}" filemode="755" prefix="NeRPN-${DSTAMP}">
                <include name="install.sh"/>
-               <include name="NeRPN"/>
             </tarfileset>
             <!-- and just include the rest... -->
             <tarfileset dir="${dist}" prefix="NeRPN-${DSTAMP}">
                <include name="**"/>
                <exclude name="install.sh"/>
-               <exclude name="NeRPN"/>
             </tarfileset>
         </tar>
-        <gzip destfile="${pkg}/NeRPN-${DSTAMP}.tar.gz" src="${pkg}/NeRPN.tar"/>
-        <bzip2 destfile="${pkg}/NeRPN-${DSTAMP}.tar.bz2" src="${pkg}/NeRPN.tar"/>
+        <!-- make sure the pkg directory is there -->
+        <mkdir dir="${pkg}"/>
+        <gzip destfile="${pkg}/NeRPN-${DSTAMP}.tar.gz" src="${build}/NeRPN.tar"/>
+        <bzip2 destfile="${pkg}/NeRPN-${DSTAMP}.tar.bz2" src="${build}/NeRPN.tar"/>
     </target>
 
     <target name="pkg_win" depends="copy_license"
       description="package NeRPN in a .zip file for distribution on Microsoft Windows">
         <!-- Make the zipfile, containing everything within the `dist` directory -->
+        <mkdir dir="${pkg}"/>
         <zip destfile="${pkg}/NeRPN-${DSTAMP}.zip" update="true">
             <zipfileset dir="${dist}" prefix="NeRPN-${DSTAMP}">
                <include name="**"/>
