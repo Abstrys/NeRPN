@@ -1,17 +1,22 @@
 # NeRPN: A Minimalist RPN Calculator
 
-**NeRPN** is a simple Reverse-Polish Notation (RPN) calculator, designed with a minimalistic interface, but with many of
-the same features as more complicated calculator software. It's designed for those users who want a simple, quick
-calculator that's easy to use and won't clutter their desktop, and who enjoy using RPN.
+**NeRPN** is a simple Reverse-Polish Notation (RPN) calculator, designed with a minimalistic
+interface, but with many of the same features as more complicated calculator software. It's designed
+for those users who want a simple, quick calculator that's easy to use and won't clutter their
+desktop, and who enjoy using RPN.
 
-If you are not familiar with RPN, you may wish to read [Understanding Reverse Polish Notation][] before proceeding with the
-rest of this guide.
+> This calculator is a desktop (GUI) calculator that uses Java + Swing. If you're looking for a
+> *command-line* calculator, check out [crpn](https://github.com/Abstrys/crpn)!
+
+If you are not familiar with RPN, you may wish to read [Understanding Reverse Polish
+Notation](https://github.com/Abstrys/NeRPN#understanding-reverse-polish-notation) before proceeding
+with the rest of this guide.
 
 **Topics:**
 
-* [Using NeRPN]
-* [NeRPN Reference]
-* [Understanding Reverse Polish Notation]
+* [Using NeRPN](https://github.com/Abstrys/NeRPN#using-nerpn)
+* [NeRPN Reference](https://github.com/Abstrys/NeRPN#nerpn-reference)
+* [Understanding Reverse Polish Notation](https://github.com/Abstrys/NeRPN#understanding-reverse-polish-notation)
 
 ## Using NeRPN
 
